@@ -31,5 +31,6 @@ pkgs.mkShell {
     gh
     upbound
     teller
+    git
   ];
 }
