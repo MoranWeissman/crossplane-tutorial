@@ -1,17 +1,35 @@
-{ pkgs ? import <nixpkgs> {} }:pkgs.mkShell {
+{ pkgs ? import <nixpkgs> {
+    config = {
+      allowUnfree = true;
+    };
+  }
+}:
+
+let
+  # Override awscli2 to skip tests - much faster builds
+  awscli2-fast = pkgs.awscli2.overridePythonAttrs (old: {
+    doCheck = false;
+    doInstallCheck = false;
+  });
+in
+
+pkgs.mkShell {
   packages = with pkgs; [
-    gum
-    gh
-    kind
+    # AWS tools
+    awscli2-fast
+    
+    # Kubernetes & Crossplane
     kubectl
-    yq-go
-    jq
-    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    awscli2
-    azure-cli
-    upbound
-    teller
     crossplane-cli
     kubernetes-helm
+    kind
+    
+    # Utilities
+    jq
+    yq-go
+    gum
+    gh
+    upbound
+    teller
   ];
 }
