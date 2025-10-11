@@ -53,6 +53,7 @@ kubectl apply \
 
 helm upgrade --install crossplane crossplane \
     --repo https://charts.crossplane.io/stable \
+    --version 1.14.7 \
     --namespace crossplane-system --create-namespace --wait
 
 kubectl apply \

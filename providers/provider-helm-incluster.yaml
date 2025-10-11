@@ -18,14 +18,12 @@ roleRef:
   name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
 ---
-apiVersion: pkg.crossplane.io/v1beta1
-kind: DeploymentRuntimeConfig
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
 metadata:
   name: crossplane-provider-helm
 spec:
-  serviceAccountTemplate:
-    metadata:
-      name: crossplane-provider-helm
+  serviceAccountName: crossplane-provider-helm
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
@@ -33,5 +31,5 @@ metadata:
   name: crossplane-provider-helm
 spec:
   package: xpkg.upbound.io/crossplane-contrib/provider-helm:v0.17.0
-  runtimeConfigRef:
+  controllerConfigRef:
     name: crossplane-provider-helm

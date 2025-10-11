@@ -53,14 +53,12 @@ roleRef:
   name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
 ---
-apiVersion: pkg.crossplane.io/v1beta1
-kind: DeploymentRuntimeConfig
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
 metadata:
   name: crossplane-provider-kubernetes
 spec:
-  serviceAccountTemplate:
-    metadata:
-      name: crossplane-provider-kubernetes
+  serviceAccountName: crossplane-provider-kubernetes
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
@@ -68,5 +66,5 @@ metadata:
   name: crossplane-provider-kubernetes
 spec:
   package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.9.0
-  runtimeConfigRef:
+  controllerConfigRef:
     name: crossplane-provider-kubernetes
