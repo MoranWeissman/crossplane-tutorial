@@ -47,7 +47,8 @@ fi
 # Control Plane Cluster #
 #########################
 
-kind delete cluster
+echo "delete manually the Kind cluster if all resources are deleted"
+#kind delete cluster
 
 ##################
 # Commit Changes #
